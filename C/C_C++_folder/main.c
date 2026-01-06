@@ -21,39 +21,69 @@ int main()
     Vector2 position = {0,0};
     Vector2 velocity = {10.0,20.0};
     Ball ball = {position,velocity};
-    printf("sizeof_vector2 = %d\n",sizeof(Vector2));
-    printf("initial position and velocity in the y-direction %f %f\n",ball.position.y, ball.velocity.y);
+    // printf("sizeof_vector2 = %d\n",sizeof(Vector2));
+    // printf("initial position and velocity in the y-direction %f %f\n",ball.position.y, ball.velocity.y);
     // grades G = {0};
     // grades_init(&G,3);
     // for(int i=0;i<20;i++)
     // {
     //     grades_append(&G,i+10);
+    //     printf("New capacity%zu\n",G.capacity);
     // }
     // for(size_t j=0;j<G.count;j++)
     // {
-    //     printf("%d\t",G.data[j]);
+    //     printf("%d\n",G.data[j]);
     // }
     // grades_free(&G);
-    trajectory trail = {0};
-    initTrajectory(&trail,5);
-    printf("Initial size=%zu, capacity=%zu\n",trail.size, trail.capacity);
-    printf("Initial data is:",trail.data);
-    for(int t=0;t<50;t++)
-    {
-    //    printf("x=%f,y=%f\n",ball.position.x,ball.position.y); 
-       appendTrajectory(&trail,ball.position);
-       updateBall(&ball,dt,g);
-        if (ball.position.y<=0)
-        {
-            break;
-        }
+    // trajectory trail = {0};
+    // initTrajectory(&trail,5);
+    // printf("Initial size=%zu, capacity=%zu\n",trail.size, trail.capacity);
+    // printf("Initial data is:",trail.data);
+    // for(int t=0;t<50;t++)
+    // {
+    // //    printf("x=%f,y=%f\n",ball.position.x,ball.position.y); 
+    //    appendTrajectory(&trail,ball.position);
+    //    updateBall(&ball,dt,g);
+    //     if (ball.position.y<=0)
+    //     {
+    //         break;
+    //     }
         
-    }
-    for(size_t j=0;j<trail.size;j++)
-    {
-        printf("Trail x=%f, y=%f\n",ball.position.x, ball.position.y);
-    }
+    // }
+    // for(size_t j=0;j<trail.size;j++)
+    // {
+    //     printf("Trail x=%f, y=%f\n",trail.data->x, trail.data->y);
+    // }
+    // printf("length of trail is:%d\n",sizeof(trail)/sizeof(trail.data[0]));
 
-    freeTrajectory(&trail);    
-    return 0;
+    // freeTrajectory(&trail);  
+    trajectory *new_trail = initTrajectory(10);
+    printf("Initial size=%zu, capacity=%zu\n",new_trail->size, new_trail->capacity);
+    // Ball ball1 = {{0,1},{10,15}};
+    // Ball ball2 = {{2,3},{20,25}};
+    // Ball ball3 = {{4,5},{30,35}};
+    // printf("ball1,x=%f,y=%f\n",ball1.position.x,ball1.position.y);
+    // printf("ball2,x=%f,y=%f\n",ball2.position.x,ball2.position.y);
+    // printf("ball3,x=%f,y=%f\n",ball3.position.x,ball3.position.y);
+
+    // appendTrajectory(new_trail,ball1.position);
+    // appendTrajectory(new_trail,ball2.position);
+    // appendTrajectory(new_trail,ball3.position);
+    // // for(size_t j=0;j < new_trail->size;j++)printf("Trail x=%f, y=%f\n",new_trail->data->x, new_trail->data->y);
+    // printf("Recent size=%zu, capacity=%zu\n",new_trail->size, new_trail->capacity);
+    // for(size_t j=0;j<new_trail->size;j++){
+    //     printf("new_trail x=%f, y=%f\n",new_trail->data[j].x, new_trail->data[j].y);
+    // }
+    while (ball.position.y>=0)
+    {
+        // printf("x=%.2f, y=%.2f\n",ball.position.x, ball.position.y);
+        appendTrajectory(new_trail,ball.position);
+        updateBall(&ball,dt,g);
+    }
+    printf("Recent size=%zu, capacity=%zu\n",new_trail->size, new_trail->capacity);
+    for(size_t j=0;j<new_trail->size;j++)printf("new_trail x=%f, y=%f\n",new_trail->data[j].x, new_trail->data[j].y);
+    freeTrajectory(new_trail);
+
+
+
 }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        

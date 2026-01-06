@@ -20,16 +20,15 @@ void grades_init(grades *g, int initial_capacity)
 }
 
 void grades_append(grades *g,int value)
-{   
-    if(g->capacity==0)g->capacity = 10;
-    else
-    {
-        g->capacity = 2 * g->capacity;
-        g->data = realloc(g->data, g->capacity * sizeof(int));
-    }
-    g->data[g->count++] = value;
-    printf("New capacity is %zu\n",g->capacity);
-    
+{
+  if(g->capacity<=0)g->capacity=10;
+  else if (g->count>=g->capacity)
+  {
+    g->capacity = 2 * g->capacity;
+    g->data = realloc(g->data,g->capacity * sizeof(int));
+  }
+  g->data[g->count++] = value;
+  
 }
 
 void grades_free(grades *g)

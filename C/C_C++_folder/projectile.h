@@ -26,34 +26,25 @@ void updateBall(Ball *p,float dt, float g){
     p->velocity.y -= g * dt;
 }
 
-void  initTrajectory(trajectory *trj, size_t initial_capacity)
+trajectory* initTrajectory(size_t initial_capacity)
 {
-    trj->data = malloc(initial_capacity * sizeof(Vector2));
-    if(trj->data==NULL)printf("Assignment didn't work!\n");
-    trj->size = 0;
-    trj->capacity = initial_capacity;
+    trajectory* list;
+    list->data = malloc(initial_capacity * sizeof(Vector2));
+    if(list->data==NULL)printf("Mem allocation didn't work!\n");
+    list->capacity = initial_capacity;
+    list->size = 0;
+    return list;
 }
 
 void appendTrajectory(trajectory *trj, Vector2 value)
-{
-    // 1. Check if we are out of space
-    if (trj->size >= trj->capacity) 
+{   if(trj->capacity<=0)trj->capacity = 10;
+    else if(trj->size>=trj->capacity)
     {
-        // Handle initial case or double capacity
-        trj->capacity = (trj->capacity == 0) ? 10 : trj->capacity * 2;
-        
-        Vector2 *temp = realloc(trj->data, trj->capacity * sizeof(Vector2));
-        if (temp == NULL) {
-            fprintf(stderr, "Memory reallocation failed!\n");
-            return;
-        }
-        trj->data = temp;
+        trj->capacity = 2 * trj->capacity;
+        trj->data = realloc(trj->data, trj->capacity * sizeof(Vector2));
     }
-    
-    // 2. Always insert the data and increment size
-    trj->data[trj->size++] = value;
+        trj->data[trj->size++] = value;
 }
-
 
 void freeTrajectory(trajectory *trj){
     free(trj->data);
